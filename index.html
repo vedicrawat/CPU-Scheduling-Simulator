@@ -20,14 +20,18 @@
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
                     <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-indigo-500 text-sm font-medium text-gray-900">Home</a>
-                    <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700">Algorithms</a>
-                    <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700">Demo</a>
-                    <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700">Team</a>
+                    <a href="#" class="border-transparent text-gray-500 hover:border-gray-300">Algorithms</a>
+                    <a href="#" class="border-transparent text-gray-500 hover:border-gray-300">Demo</a>
+                    <a href="#" class="border-transparent text-gray-500 hover:border-gray-300">Team</a>
                 </div>
             </div>
         </div>
     </nav>
-
+                </div>
+            </div>
+        </div>
+    </nav>
+    
     <!-- Hero Section -->
     <div class="relative bg-white overflow-hidden">
         <div class="max-w-7xl mx-auto">
@@ -68,48 +72,48 @@
                 <dl class="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
                     <div class="relative">
                         <dt>
-                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 dark:bg-blue-400 text-white">
                                 <i class="fas fa-list-ol"></i>
                             </div>
-                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">FCFS (First-Come, First-Served)</p>
+                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white">FCFS (First-Come, First-Served)</p>
                         </dt>
-                        <dd class="mt-2 ml-16 text-base text-gray-500">
+                        <dd class="mt-2 ml-16 text-base text-gray-500 dark:text-gray-400">
                             Processes are executed in the order they arrive in the ready queue.
                         </dd>
                     </div>
 
                     <div class="relative">
                         <dt>
-                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-green-500 text-white">
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-green-500 dark:bg-green-400 text-white">
                                 <i class="fas fa-clock"></i>
                             </div>
-                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">SJF (Shortest Job First)</p>
+                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white">SJF (Shortest Job First)</p>
                         </dt>
-                        <dd class="mt-2 ml-16 text-base text-gray-500">
+                        <dd class="mt-2 ml-16 text-base text-gray-500 dark:text-gray-400">
                             Processes with the shortest burst time are executed first.
                         </dd>
                     </div>
 
                     <div class="relative">
                         <dt>
-                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-yellow-500 text-white">
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-yellow-500 dark:bg-yellow-400 text-white">
                                 <i class="fas fa-sync-alt"></i>
                             </div>
-                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Round Robin</p>
+                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white">Round Robin</p>
                         </dt>
-                        <dd class="mt-2 ml-16 text-base text-gray-500">
+                        <dd class="mt-2 ml-16 text-base text-gray-500 dark:text-gray-400">
                             Processes are executed in a cyclic manner with fixed time slices.
                         </dd>
                     </div>
 
                     <div class="relative">
                         <dt>
-                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 dark:bg-purple-400 text-white">
                                 <i class="fas fa-star"></i>
                             </div>
-                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Priority Scheduling</p>
+                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white">Priority Scheduling</p>
                         </dt>
-                        <dd class="mt-2 ml-16 text-base text-gray-500">
+                        <dd class="mt-2 ml-16 text-base text-gray-500 dark:text-gray-400">
                             Processes are executed based on their priority levels.
                         </dd>
                     </div>
@@ -164,8 +168,10 @@
                             <select class="algorithm-select block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                 <option value="FCFS">FCFS (First-Come, First-Served)</option>
                                 <option value="SJF">SJF (Shortest Job First)</option>
+                                <option value="Preemptive SJF">Preemptive SJF (Shortest Remaining Time First)</option>
                                 <option value="Round Robin">Round Robin</option>
                                 <option value="Priority">Priority Scheduling</option>
+                                <option value="Preemptive Priority">Preemptive Priority Scheduling</option>
                             </select>
                             <div class="time-quantum hidden">
                                 <label class="block text-sm font-medium text-gray-700">Time Quantum (for Round Robin)</label>
@@ -183,30 +189,87 @@
         </div>
     </div>
 
-    <!-- Output Section -->
-    <div class="bg-white">
-        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-                    Simulation Results
-                </h2>
-                <p class="mt-4 text-lg text-gray-500">
-                    Gantt Chart and Performance Metrics
-                </p>
+    <!-- Process Table -->
+    <div class="mt-8">
+        <h2 class="text-xl font-semibold mb-4 text-gray-900">Added Processes</h2>
+        <div class="overflow-x-auto">
+            <table id="process-table" class="min-w-full border border-gray-300">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Process ID</th>
+                        <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Arrival Time</th>
+                        <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Burst Time</th>
+                        <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Priority</th>
+                        <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="process-table-body" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-600">
+                    <!-- Process rows will be added here dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Gantt Chart Section -->
+    <div id="gantt-section" class="mt-8">
+        <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Gantt Chart</h2>
+        <div id="gantt-container" class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <!-- Timeline header -->
+            <div class="flex justify-between items-center mb-4">
+                <div class="text-sm text-gray-500 dark:text-gray-400">Time</div>
+                <div class="flex-1 border-b border-gray-200 dark:border-gray-600"></div>
+                <div class="text-sm text-gray-500 dark:text-gray-400">0</div>
             </div>
-            <div class="mt-12">
-                <div class="bg-gray-50 rounded-lg p-6">
-                    <div id="gantt-chart" class="mb-8">
-                        <!-- Gantt chart will be rendered here -->
-                        <p class="text-center text-gray-600">Gantt chart will appear here after simulation</p>
-                    </div>
+            <!-- Process bars will be added here -->
+            <div id="gantt-bars" class="space-y-4">
+                <!-- Process bars will be dynamically added -->
+            </div>
+            <!-- Time labels container -->
+            <div id="time-labels" class="flex justify-between items-center text-sm text-gray-500 dark:text-gray-400 mt-4">
+                <!-- Time labels will be added here dynamically -->
+            </div>
+            <!-- Performance Metrics -->
+            <div id="performance-metrics" class="space-y-2 mt-4">
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-500 dark:text-gray-400">Average Waiting Time:</span>
+                    <span id="avg-waiting-time" class="font-medium text-gray-900 dark:text-white">0 ms</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-500 dark:text-gray-400">Average Turnaround Time:</span>
+                    <span id="avg-turnaround-time" class="font-medium text-gray-900 dark:text-white">0 ms</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-500 dark:text-gray-400">Average Response Time:</span>
+                    <span id="avg-response-time" class="font-medium text-gray-900 dark:text-white">0 ms</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-500 dark:text-gray-400">CPU Utilization:</span>
+                    <span id="cpu-utilization" class="font-medium text-gray-900 dark:text-white">0%</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-500 dark:text-gray-400">Throughput:</span>
+                    <span id="throughput" class="font-medium text-gray-900 dark:text-white">0 processes/unit time</span>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Output Section -->
+    <div class="bg-white dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
+                    Simulation Results
+                </h2>
+                <p class="mt-4 text-lg text-gray-500 dark:text-gray-400">
+                    Gantt Chart and Performance Metrics
+                </p>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
-    <footer class="bg-gray-800">
+    <footer class="bg-gray-900">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
@@ -239,5 +302,60 @@
             </div>
         </div>
     </footer>
-</body>
+
+
+</script>
 </html>
+
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-gray-800 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-2xl font-bold text-blue-600 dark:text-white">CPU Scheduling Simulator</h1>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                    <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-indigo-500 text-sm font-medium text-gray-900 dark:text-white">Home</a>
+                    <a href="#" class="border-transparent text-gray-500 dark:text-gray-400 hover:border-gray-300 dark:hover:border-gray-700">Algorithms</a>
+                    <a href="#" class="border-transparent text-gray-500 dark:text-gray-400 hover:border-gray-300 dark:hover:border-gray-700">Demo</a>
+                    <a href="#" class="border-transparent text-gray-500 dark:text-gray-400 hover:border-gray-300 dark:hover:border-gray-700">Team</a>
+                </div>
+                <button id="dark-mode-toggle" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <svg id="dark-mode-icon" class="w-6 h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Rest of your content here -->
+
+    <!-- Add scheduler.js at the end of body -->
+    <script src="scheduler.js" defer></script>
+</body>
+</html>>><div id="dark-mode-container" class="flex items-center space-x-2">
+    <!-- Moon/Sun toggle button -->
+    <button id="dark-mode-toggle" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+        <svg id="dark-mode-icon" class="w-6 h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+        </svg>
+    </button>
+    <!-- Dark/Light mode buttons container -->
+    <div id="dark-mode-options" class="hidden">
+        <button id="dark-mode-btn" class="p-2 rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+            </svg>
+            <span class="ml-2">Dark</span>
+        </button>
+        <button id="light-mode-btn" class="p-2 rounded-lg bg-white text-gray-800 hover:bg-gray-100 transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+            </svg>
+            <span class="ml-2">Light</span>
+        </button>
+    </div>
+</div>

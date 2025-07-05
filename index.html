@@ -6,118 +6,309 @@
     <title>CPU Scheduling Simulator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="scheduler.js" defer></script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        .bg-grid-white {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='%23ffffff'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg">
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <h1 class="text-2xl font-bold text-blue-600">CPU Scheduling Simulator</h1>
-                    </div>
-                </div>
-                <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                    <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-indigo-500 text-sm font-medium text-gray-900">Home</a>
-                    <a href="#" class="border-transparent text-gray-500 hover:border-gray-300">Algorithms</a>
-                    <a href="#" class="border-transparent text-gray-500 hover:border-gray-300">Demo</a>
-                    <a href="#" class="border-transparent text-gray-500 hover:border-gray-300">Team</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-                </div>
-            </div>
-        </div>
-    </nav>
-    
-    <!-- Hero Section -->
-    <div class="relative bg-white overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-            <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
-                <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-                    <div class="sm:text-center lg:text-left">
-                        <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                            <span class="block">CPU Scheduling Simulator</span>
-                            <span class="block text-blue-600">Visualize Process Scheduling Algorithms</span>
+                        <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                            CPU Scheduler Pro
                         </h1>
-                        <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                            Explore and understand different CPU scheduling algorithms through interactive simulations and visualizations.
-                        </p>
-                        <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                            <div class="rounded-md shadow">
-                                <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10">
-                                    Start Simulation
-                                </a>
-                            </div>
-                        </div>
                     </div>
-                </main>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-8 items-center">
+                    <a href="#" class="text-indigo-600 border-b-2 border-indigo-500 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="./algorithms.html" class="text-gray-500 hover:text-gray-700 px-3 py-2 text-sm font-medium transition-colors">Algorithms</a>
+                    <a href="#simulation" class="text-gray-500 hover:text-gray-700 px-3 py-2 text-sm font-medium transition-colors">Simulation</a>
+                    <a href="#about" class="text-gray-500 hover:text-gray-700 px-3 py-2 text-sm font-medium transition-colors">About</a>
+                    <button class="ml-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:opacity-90 transition-opacity shadow-md">
+                        Try Now
+                    </button>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="sm:hidden flex items-center">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative bg-gradient-to-br from-indigo-900 via-purple-900 to-fuchsia-900 overflow-hidden">
+        <!-- Animated background elements -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute inset-0 bg-grid-white/10 [mask-image:linear-gradient(0deg,transparent,black)]"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-400/20 via-transparent to-indigo-400/20"></div>
+        </div>
+        
+        <!-- Main content -->
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+            <div class="text-center">
+                <!-- Animated badge -->
+                <div class="animate-bounce inline-block px-4 py-2 mb-6 text-sm font-semibold text-white bg-gradient-to-r from-purple-500 to-pink-500 backdrop-blur-sm rounded-full shadow-lg transform transition-all hover:scale-105">
+                    <span class="animate-pulse">✨</span> Interactive Learning Tool
+                </div>
+                
+                <!-- Main heading with animated gradient -->
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-7xl mb-6">
+                    <span class="block text-white">CPU Scheduling</span>
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-400 animate-gradient">
+                        Visualizer Pro
+                    </span>
+                </h1>
+                
+                <!-- Animated subtitle -->
+                <p class="mx-auto mt-6 max-w-2xl text-xl text-indigo-100">
+                    Explore, visualize, and master CPU scheduling algorithms with our interactive simulator.
+                    Perfect for students and educators in operating systems courses.
+                </p>
+                
+                <!-- CTA Buttons -->
+                <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#simulation" class="group relative inline-flex items-center justify-center px-8 py-3 overflow-hidden text-lg font-medium text-white bg-amber-500 rounded-full hover:bg-amber-600 transition-all duration-300 transform hover:scale-105">
+                        <span class="relative">Start Simulation <i class="fas fa-play ml-2"></i></span>
+                        <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-amber-600 group-hover:translate-x-0 ease">
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </a>
+                    <a href="#algorithms" class="inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white border-2 border-white/30 rounded-full hover:bg-white/10 transition-all duration-300 transform hover:scale-105">
+                        Learn Algorithms <i class="fas fa-book-open ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Stats with Continuous Animation -->
+                <div class="mt-16 grid grid-cols-2 gap-8 sm:grid-cols-4">
+                    <div class="animate-stat text-center">
+                        <div class="animate-stat-number text-3xl font-bold text-amber-400 sm:text-4xl">6+</div>
+                        <div class="animate-stat-text mt-2 text-sm font-medium text-blue-100">Algorithms</div>
+                    </div>
+                    <div class="animate-stat text-center" style="animation-delay: 0.5s">
+                        <div class="animate-stat-number text-3xl font-bold text-amber-400 sm:text-4xl">100%</div>
+                        <div class="animate-stat-text mt-2 text-sm font-medium text-blue-100">Interactive</div>
+                    </div>
+                    <div class="animate-stat text-center" style="animation-delay: 1s">
+                        <div class="animate-stat-number text-3xl font-bold text-amber-400 sm:text-4xl">24/7</div>
+                        <div class="animate-stat-text mt-2 text-sm font-medium text-blue-100">Available</div>
+                    </div>
+                    <div class="animate-stat text-center" style="animation-delay: 1.5s">
+                        <div class="animate-stat-number text-3xl font-bold text-amber-400 sm:text-4xl">Free</div>
+                        <div class="animate-stat-text mt-2 text-sm font-medium text-blue-100">Forever</div>
+                    </div>
+                </div>
+                
+                <style>
+                @keyframes floatUpDown {
+                    0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(-10px); }
+                }
+                @keyframes pulse {
+                    0%, 100% { opacity: 0.8; }
+                    50% { opacity: 1; }
+                }
+                .animate-stat {
+                    animation: floatUpDown 3s ease-in-out infinite;
+                }
+                .animate-stat-number {
+                    display: inline-block;
+                    animation: pulse 3s ease-in-out infinite;
+                }
+                .animate-stat-text {
+                    display: inline-block;
+                    animation: pulse 3s ease-in-out infinite reverse;
+                }
+                </style>
+            </div>
+        </div>
+        
+        <!-- Animated wave divider -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" class="w-full h-16 md:h-24">
+                <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="#ffffff"></path>
+            </svg>
+        </div>
+    </div>
+    
+    <!-- Algorithm Explanation Modal -->
+    <div id="algorithm-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="flex justify-between items-center pb-3">
+                <h3 class="text-lg font-bold">Algorithm Explanation</h3>
+                <button id="close-modal" class="text-black float-right">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="algorithm-content" class="text-gray-700">
+                <!-- Content will be dynamically inserted here -->
             </div>
         </div>
     </div>
-
+    
     <!-- Algorithms Section -->
-    <div class="py-12 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="lg:text-center">
-                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Scheduling Algorithms</h2>
-                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                    Explore Different Algorithms
-                </p>
+    <div class="relative py-16 bg-gradient-to-b from-white to-blue-50 overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-5">
+            <div class="absolute inset-0 bg-grid-blue-200 [mask-image:linear-gradient(0deg,transparent,black)]"></div>
+        </div>
+        <div class="absolute -right-40 -top-40 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
+        <div class="absolute -left-40 -bottom-40 w-96 h-96 bg-indigo-400 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
+        
+        <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="inline-flex items-center px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 shadow-sm mb-6 animate-fade-in">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse"></div>
+                    <span class="text-sm font-semibold tracking-wide uppercase text-blue-600">
+                        <i class="fas fa-microchip mr-2"></i> CPU Scheduling
+                    </span>
+                </div>
+                
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-gray-900 mb-6">
+                    <span class="block bg-clip-text text-transparent bg-gradient-to-r from-blue-800 to-indigo-800 pb-2">
+                        Scheduling Algorithms
+                    </span>
+                    <span class="relative inline-block mt-3">
+                        <span class="relative z-10 text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-indigo-600">
+                            Visualized & <span class="relative">
+                                Explained
+                                <span class="absolute -bottom-1 left-0 w-full h-1.5 bg-gradient-to-r from-blue-300 to-indigo-300 rounded-full opacity-70"></span>
+                            </span>
+                        </span>
+                    </span>
+                </h1>
+                
+                <div class="max-w-2xl mx-auto relative">
+                    <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
+                        <span class="relative">
+                            Explore different CPU scheduling algorithms through <span class="font-medium text-gray-800">interactive visualizations</span> and <span class="font-medium text-gray-800">detailed explanations</span> that bring theory to life.
+                        </span>
+                    </p>
+                    <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-blue-200 to-indigo-200 rounded-full opacity-70"></div>
+                </div>
+                
+                <div class="mt-8 flex justify-center space-x-4">
+                    <div class="h-2 w-2 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 0s"></div>
+                    <div class="h-2 w-2 bg-indigo-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                    <div class="h-2 w-2 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                </div>
             </div>
-
-            <div class="mt-10">
-                <dl class="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
-                    <div class="relative">
-                        <dt>
-                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 dark:bg-blue-400 text-white">
-                                <i class="fas fa-list-ol"></i>
+            
+            <div class="mt-16 relative z-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- FCFS Card -->
+                    <div class="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-blue-100 overflow-hidden transform hover:-translate-y-1">
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="absolute -right-10 -top-10 w-32 h-32 bg-blue-100 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center text-white mb-6 shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-arrow-right-arrow-left text-2xl"></i>
                             </div>
-                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white">FCFS (First-Come, First-Served)</p>
-                        </dt>
-                        <dd class="mt-2 ml-16 text-base text-gray-500 dark:text-gray-400">
-                            Processes are executed in the order they arrive in the ready queue.
-                        </dd>
+                            <div class="flex items-center mb-2">
+                                <h3 class="text-2xl font-bold text-gray-900">FCFS</h3>
+                                <span class="ml-3 px-3 py-1 text-xs font-semibold text-blue-700 bg-blue-100 rounded-full">Non-preemptive</span>
+                            </div>
+                            <p class="text-lg font-medium text-blue-600 mb-4">First-Come, First-Served</p>
+                            <p class="text-gray-600 mb-5">Processes are executed in the order they arrive in the ready queue, ensuring fairness but potentially leading to the convoy effect.</p>
+                            <div class="flex items-center text-sm text-blue-500 font-medium group-hover:text-blue-600 transition-colors">
+                                <span>Learn more</span>
+                                <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="relative">
-                        <dt>
-                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-green-500 dark:bg-green-400 text-white">
-                                <i class="fas fa-clock"></i>
+                    <!-- SJF Card -->
+                    <div class="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-green-100 overflow-hidden transform hover:-translate-y-1">
+                        <div class="absolute inset-0 bg-gradient-to-br from-green-50 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="absolute -right-10 -top-10 w-32 h-32 bg-green-100 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center text-white mb-6 shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-stopwatch text-2xl"></i>
                             </div>
-                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white">SJF (Shortest Job First)</p>
-                        </dt>
-                        <dd class="mt-2 ml-16 text-base text-gray-500 dark:text-gray-400">
-                            Processes with the shortest burst time are executed first.
-                        </dd>
+                            <div class="flex items-center mb-2">
+                                <h3 class="text-2xl font-bold text-gray-900">SJF</h3>
+                                <span class="ml-3 px-3 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full">Optimal</span>
+                            </div>
+                            <p class="text-lg font-medium text-green-600 mb-4">Shortest Job First</p>
+                            <p class="text-gray-600 mb-5">Prioritizes processes with the shortest CPU burst time, minimizing average waiting time but requiring advance knowledge of burst times.</p>
+                            <div class="flex items-center text-sm text-green-500 font-medium group-hover:text-green-600 transition-colors">
+                                <span>Learn more</span>
+                                <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="relative">
-                        <dt>
-                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-yellow-500 dark:bg-yellow-400 text-white">
-                                <i class="fas fa-sync-alt"></i>
+                    <!-- Round Robin Card -->
+                    <div class="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-yellow-100 overflow-hidden transform hover:-translate-y-1">
+                        <div class="absolute inset-0 bg-gradient-to-br from-yellow-50 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="absolute -right-10 -top-10 w-32 h-32 bg-yellow-100 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl flex items-center justify-center text-white mb-6 shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-sync-alt text-2xl"></i>
                             </div>
-                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white">Round Robin</p>
-                        </dt>
-                        <dd class="mt-2 ml-16 text-base text-gray-500 dark:text-gray-400">
-                            Processes are executed in a cyclic manner with fixed time slices.
-                        </dd>
+                            <div class="flex items-center mb-2">
+                                <h3 class="text-2xl font-bold text-gray-900">Round Robin</h3>
+                                <span class="ml-3 px-3 py-1 text-xs font-semibold text-yellow-700 bg-yellow-100 rounded-full">Preemptive</span>
+                            </div>
+                            <p class="text-lg font-medium text-yellow-600 mb-4">Time-sliced Scheduling</p>
+                            <p class="text-gray-600 mb-5">Each process gets a small unit of CPU time in a cyclic order, providing excellent response time for interactive systems and preventing starvation.</p>
+                            <div class="flex items-center text-sm text-yellow-500 font-medium group-hover:text-yellow-600 transition-colors">
+                                <span>Learn more</span>
+                                <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="relative">
-                        <dt>
-                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 dark:bg-purple-400 text-white">
-                                <i class="fas fa-star"></i>
+                    <!-- Priority Scheduling Card -->
+                    <div class="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-purple-100 overflow-hidden transform hover:-translate-y-1">
+                        <div class="absolute inset-0 bg-gradient-to-br from-purple-50 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="absolute -right-10 -top-10 w-32 h-32 bg-purple-100 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center text-white mb-6 shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-flag text-2xl"></i>
                             </div>
-                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white">Priority Scheduling</p>
-                        </dt>
-                        <dd class="mt-2 ml-16 text-base text-gray-500 dark:text-gray-400">
-                            Processes are executed based on their priority levels.
-                        </dd>
+                            <div class="flex items-center mb-2">
+                                <h3 class="text-2xl font-bold text-gray-900">Priority</h3>
+                                <span class="ml-3 px-3 py-1 text-xs font-semibold text-purple-700 bg-purple-100 rounded-full">Configurable</span>
+                            </div>
+                            <p class="text-lg font-medium text-purple-600 mb-4">Priority-based Scheduling</p>
+                            <p class="text-gray-600 mb-5">Processes are executed based on priority levels, with higher priority processes executing first. Can be implemented as both preemptive and non-preemptive.</p>
+                            <div class="flex items-center text-sm text-purple-500 font-medium group-hover:text-purple-600 transition-colors">
+                                <span>Learn more</span>
+                                <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+                        </div>
                     </div>
-                </dl>
+                </div>
+                
+                <style>
+                .algorithm-card {
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+                .algorithm-card:hover {
+                    transform: translateY(-5px);
+                }
+                .gradient-bg {
+                    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+                }
+                </style>
             </div>
         </div>
     </div>
@@ -132,56 +323,112 @@
                 </h2>
             </div>
             <div class="mt-8">
-                <div class="bg-white rounded-lg shadow-xl overflow-hidden">
-                    <div class="px-4 py-5 sm:p-6">
-                        <div class="grid grid-cols-6 gap-6">
-                            <div class="col-span-6 sm:col-span-3">
-                                <label class="block text-sm font-medium text-gray-700">Process ID</label>
-                                <input type="text" class="process-id mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-2xl overflow-hidden border border-blue-100 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                    <div class="px-6 py-6 sm:p-8">
+                        <div class="flex items-center mb-6">
+                            <div class="p-3 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg">
+                                <i class="fas fa-tasks text-xl"></i>
                             </div>
-                            <div class="col-span-6 sm:col-span-3">
-                                <label class="block text-sm font-medium text-gray-700">Burst Time</label>
-                                <input type="number" class="burst-time mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <h3 class="ml-4 text-xl font-bold text-gray-800">Process Configuration</h3>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="transform transition-all duration-300 hover:scale-[1.02]">
+                                <label class="block text-sm font-semibold text-gray-700 mb-1 ml-1">Process ID</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-hashtag text-blue-400"></i>
+                                    </div>
+                                    <input type="text" class="process-id pl-10 block w-full rounded-xl border-2 border-blue-100 bg-white py-3 px-4 text-gray-700 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all duration-200" placeholder="P1">
+                                </div>
                             </div>
-                            <div class="col-span-6 sm:col-span-3">
-                                <label class="block text-sm font-medium text-gray-700">Priority</label>
-                                <input type="number" class="priority mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <div class="transform transition-all duration-300 hover:scale-[1.02]">
+                                <label class="block text-sm font-semibold text-gray-700 mb-1 ml-1">Burst Time</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-stopwatch text-indigo-400"></i>
+                                    </div>
+                                    <input type="number" class="burst-time pl-10 block w-full rounded-xl border-2 border-blue-100 bg-white py-3 px-4 text-gray-700 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all duration-200" placeholder="e.g. 5">
+                                </div>
                             </div>
-                            <div class="col-span-6 sm:col-span-3">
-                                <label class="block text-sm font-medium text-gray-700">Arrival Time</label>
-                                <input type="number" class="arrival-time mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <div class="transform transition-all duration-300 hover:scale-[1.02]">
+                                <label class="block text-sm font-semibold text-gray-700 mb-1 ml-1">Priority</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-flag text-yellow-400"></i>
+                                    </div>
+                                    <input type="number" class="priority pl-10 block w-full rounded-xl border-2 border-blue-100 bg-white py-3 px-4 text-gray-700 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all duration-200" placeholder="Lower number = higher priority">
+                                </div>
+                            </div>
+                            <div class="transform transition-all duration-300 hover:scale-[1.02]">
+                                <label class="block text-sm font-semibold text-gray-700 mb-1 ml-1">Arrival Time</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="far fa-clock text-green-400"></i>
+                                    </div>
+                                    <input type="number" class="arrival-time pl-10 block w-full rounded-xl border-2 border-blue-100 bg-white py-3 px-4 text-gray-700 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all duration-200" placeholder="Time unit when process arrives">
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                        <button type="button" class="add-process-btn inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            Add Process
+                    <div class="px-6 py-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-t border-blue-100 text-right sm:px-8">
+                        <button type="button" class="add-process-btn inline-flex items-center justify-center py-3 px-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200">
+                            <i class="fas fa-plus-circle mr-2"></i> Add Process
                         </button>
                     </div>
                 </div>
 
                 <!-- Algorithm Selection -->
-                <div class="mt-8 bg-white rounded-lg shadow-xl overflow-hidden">
-                    <div class="px-4 py-5 sm:p-6">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Select Scheduling Algorithm</h3>
-                        <div class="space-y-4">
-                            <select class="algorithm-select block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                <option value="FCFS">FCFS (First-Come, First-Served)</option>
-                                <option value="SJF">SJF (Shortest Job First)</option>
-                                <option value="Preemptive SJF">Preemptive SJF (Shortest Remaining Time First)</option>
-                                <option value="Round Robin">Round Robin</option>
-                                <option value="Priority">Priority Scheduling</option>
-                                <option value="Preemptive Priority">Preemptive Priority Scheduling</option>
-                            </select>
-                            <div class="time-quantum hidden">
-                                <label class="block text-sm font-medium text-gray-700">Time Quantum (for Round Robin)</label>
-                                <input type="number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" value="4">
+                <div class="mt-8 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl shadow-2xl overflow-hidden border border-indigo-100 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                    <div class="px-6 py-6 sm:p-8">
+                        <div class="flex items-center mb-6">
+                            <div class="p-3 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-lg">
+                                <i class="fas fa-project-diagram text-xl"></i>
+                            </div>
+                            <h3 class="ml-4 text-xl font-bold text-gray-800">Scheduling Algorithm</h3>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="transform transition-all duration-300 hover:scale-[1.01]">
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-sort-amount-down text-indigo-500"></i>
+                                    </div>
+                                    <select class="algorithm-select appearance-none pl-10 pr-10 block w-full rounded-xl border-2 border-indigo-100 bg-white py-3 px-4 text-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none transition-all duration-200 cursor-pointer">
+                                        <option value="">Select an Algorithm</option>
+                                        <option value="FCFS">FCFS (First-Come, First-Served)</option>
+                                        <option value="SJF">SJF (Shortest Job First)</option>
+                                        <option value="Preemptive SJF">Preemptive SJF (SRTF)</option>
+                                        <option value="Round Robin">Round Robin</option>
+                                        <option value="Priority">Priority Scheduling</option>
+                                        <option value="Preemptive Priority">Preemptive Priority</option>
+                                    </select>
+                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                        <i class="fas fa-chevron-down text-indigo-400"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="time-quantum hidden transform transition-all duration-300 hover:scale-[1.02]">
+                                <label class="block text-sm font-semibold text-gray-700 mb-1 ml-1">Time Quantum</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-hourglass-half text-purple-400"></i>
+                                    </div>
+                                    <input type="number" class="pl-10 block w-full rounded-xl border-2 border-indigo-100 bg-white py-3 px-4 text-gray-700 placeholder-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none transition-all duration-200" value="4" min="1">
+                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                        <span class="text-sm text-gray-500">time units</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                        <button type="button" class="simulate-btn inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                            Run Simulation
+                    <div class="px-6 py-4 bg-gradient-to-r from-indigo-50 to-purple-50 border-t border-indigo-100 text-right sm:px-8 space-x-3">
+                        <button type="button" class="step-by-step-btn hidden items-center justify-center py-3 px-5 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200">
+                            <i class="fas fa-step-forward mr-2"></i> Step-by-Step
+                        </button>
+                        <button type="button" class="next-step-btn hidden items-center justify-center py-3 px-5 bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200">
+                            <i class="fas fa-forward mr-2"></i> Next Step
+                        </button>
+                        <button type="button" class="simulate-btn inline-flex items-center justify-center py-3 px-6 bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200">
+                            <i class="fas fa-play-circle mr-2"></i> Run Simulation
                         </button>
                     </div>
                 </div>
@@ -190,65 +437,259 @@
     </div>
 
     <!-- Process Table -->
-    <div class="mt-8">
-        <h2 class="text-xl font-semibold mb-4 text-gray-900">Added Processes</h2>
-        <div class="overflow-x-auto">
-            <table id="process-table" class="min-w-full border border-gray-300">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Process ID</th>
-                        <th class="px-6 py-3 border-b border-gray-300 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Arrival Time</th>
-                        <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Burst Time</th>
-                        <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Priority</th>
-                        <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="process-table-body" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-600">
-                    <!-- Process rows will be added here dynamically -->
-                </tbody>
-            </table>
+    <div class="mt-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-gradient-to-r from-indigo-600 to-blue-600 rounded-t-2xl px-6 py-4 shadow-lg">
+            <div class="flex items-center">
+                <div class="p-2 rounded-lg bg-white bg-opacity-20 mr-4">
+                    <i class="fas fa-list-ul text-white text-xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-white">Process Queue</h2>
+                <span id="process-count" class="ml-3 px-3 py-1 bg-white bg-opacity-20 text-white text-sm font-semibold rounded-full">0 processes</span>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-b-2xl shadow-xl overflow-hidden border border-gray-100">
+            <div class="overflow-x-auto">
+                <table id="process-table" class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                <div class="flex items-center">
+                                    <i class="fas fa-hashtag text-blue-500 mr-2"></i>
+                                    Process ID
+                                </div>
+                            </th>
+                            <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                <div class="flex items-center">
+                                    <i class="far fa-clock text-green-500 mr-2"></i>
+                                    Arrival Time
+                                </div>
+                            </th>
+                            <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                <div class="flex items-center">
+                                    <i class="fas fa-stopwatch text-purple-500 mr-2"></i>
+                                    Burst Time
+                                </div>
+                            </th>
+                            <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                <div class="flex items-center">
+                                    <i class="fas fa-flag text-yellow-500 mr-2"></i>
+                                    Priority
+                                </div>
+                            </th>
+                            <th scope="col" class="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                <div class="flex items-center justify-end">
+                                    <i class="fas fa-cog text-gray-500 mr-2"></i>
+                                    Actions
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="process-table-body" class="bg-white divide-y divide-gray-200">
+                        <!-- Process rows will be added here dynamically -->
+                        <tr id="no-processes-row" class="bg-gray-50">
+                            <td colspan="5" class="px-6 py-8 text-center text-gray-500">
+                                <div class="flex flex-col items-center justify-center">
+                                    <i class="fas fa-inbox text-4xl text-gray-300 mb-2"></i>
+                                    <p class="text-gray-500 font-medium">No processes added yet</p>
+                                    <p class="text-sm text-gray-400 mt-1">Add processes using the form above</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="bg-gray-50 px-6 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+                <div class="flex-1 flex justify-between sm:hidden">
+                    <button class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                        Previous
+                    </button>
+                    <button class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                        Next
+                    </button>
+                </div>
+                <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                    <div>
+                        <p class="text-sm text-gray-700">
+                            Showing <span class="font-medium">1</span> to <span class="font-medium">10</span> of <span class="font-medium">20</span> results
+                        </p>
+                    </div>
+                    <div>
+                        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                            <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Previous</span>
+                                <i class="fas fa-chevron-left h-5 w-5"></i>
+                            </a>
+                            <a href="#" aria-current="page" class="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                                1
+                            </a>
+                            <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                                2
+                            </a>
+                            <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                                3
+                            </a>
+                            <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                                ...
+                            </span>
+                            <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                                8
+                            </a>
+                            <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Next</span>
+                                <i class="fas fa-chevron-right h-5 w-5"></i>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Gantt Chart Section -->
-    <div id="gantt-section" class="mt-8">
-        <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Gantt Chart</h2>
-        <div id="gantt-container" class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-            <!-- Timeline header -->
-            <div class="flex justify-between items-center mb-4">
-                <div class="text-sm text-gray-500 dark:text-gray-400">Time</div>
-                <div class="flex-1 border-b border-gray-200 dark:border-gray-600"></div>
-                <div class="text-sm text-gray-500 dark:text-gray-400">0</div>
+    <!-- Simulation Metrics -->
+    <div id="metrics-container" class="mt-8 p-6 bg-white rounded-lg shadow-xl">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Simulation Metrics</h2>
+        
+        <!-- Summary Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Average Waiting Time -->
+            <div class="bg-blue-50 p-6 rounded-lg border border-blue-100">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+                        <i class="fas fa-clock text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">Avg. Waiting Time</p>
+                        <p id="avg-waiting-time" class="text-2xl font-semibold text-gray-900">0.00</p>
+                    </div>
+                </div>
             </div>
-            <!-- Process bars will be added here -->
-            <div id="gantt-bars" class="space-y-4">
-                <!-- Process bars will be dynamically added -->
+            
+            <!-- Average Turnaround Time -->
+            <div class="bg-green-50 p-6 rounded-lg border border-green-100">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-green-100 text-green-600">
+                        <i class="fas fa-exchange-alt text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">Avg. Turnaround Time</p>
+                        <p id="avg-turnaround-time" class="text-2xl font-semibold text-gray-900">0.00</p>
+                    </div>
+                </div>
             </div>
-            <!-- Time labels container -->
-            <div id="time-labels" class="flex justify-between items-center text-sm text-gray-500 dark:text-gray-400 mt-4">
-                <!-- Time labels will be added here dynamically -->
+            
+            <!-- CPU Utilization -->
+            <div class="bg-yellow-50 p-6 rounded-lg border border-yellow-100">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-yellow-100 text-yellow-600">
+                        <i class="fas fa-microchip text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">CPU Utilization</p>
+                        <p id="cpu-utilization" class="text-2xl font-semibold text-gray-900">0%</p>
+                    </div>
+                </div>
             </div>
-            <!-- Performance Metrics -->
-            <div id="performance-metrics" class="space-y-2 mt-4">
-                <div class="flex justify-between text-sm">
-                    <span class="text-gray-500 dark:text-gray-400">Average Waiting Time:</span>
-                    <span id="avg-waiting-time" class="font-medium text-gray-900 dark:text-white">0 ms</span>
+            
+            <!-- Throughput -->
+            <div class="bg-purple-50 p-6 rounded-lg border border-purple-100">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-purple-100 text-purple-600">
+                        <i class="fas fa-tachometer-alt text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">Throughput</p>
+                        <p id="throughput" class="text-2xl font-semibold text-gray-900">0.00</p>
+                    </div>
                 </div>
-                <div class="flex justify-between text-sm">
-                    <span class="text-gray-500 dark:text-gray-400">Average Turnaround Time:</span>
-                    <span id="avg-turnaround-time" class="font-medium text-gray-900 dark:text-white">0 ms</span>
+            </div>
+        </div>
+        
+        <!-- Detailed Metrics Table -->
+        <div class="mt-10">
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-t-xl px-6 py-4 shadow-sm">
+                <div class="flex items-center">
+                    <div class="p-2 rounded-lg bg-white bg-opacity-20 mr-3">
+                        <i class="fas fa-table text-white text-lg"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white">Process Execution Details</h3>
+                    <span id="process-count-details" class="ml-3 px-3 py-1 bg-white bg-opacity-20 text-white text-xs font-medium rounded-full"><span id="process-count-number">0</span> processes</span>
                 </div>
-                <div class="flex justify-between text-sm">
-                    <span class="text-gray-500 dark:text-gray-400">Average Response Time:</span>
-                    <span id="avg-response-time" class="font-medium text-gray-900 dark:text-white">0 ms</span>
-                </div>
-                <div class="flex justify-between text-sm">
-                    <span class="text-gray-500 dark:text-gray-400">CPU Utilization:</span>
-                    <span id="cpu-utilization" class="font-medium text-gray-900 dark:text-white">0%</span>
-                </div>
-                <div class="flex justify-between text-sm">
-                    <span class="text-gray-500 dark:text-gray-400">Throughput:</span>
-                    <span id="throughput" class="font-medium text-gray-900 dark:text-white">0 processes/unit time</span>
+            </div>
+            <div class="overflow-hidden rounded-b-xl border border-gray-200 shadow">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border-b border-gray-200">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-hashtag text-blue-500 mr-2 text-xs"></i>
+                                        Process
+                                    </div>
+                                </th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border-b border-gray-200">
+                                    <div class="flex items-center">
+                                        <i class="far fa-clock text-blue-400 mr-2 text-xs"></i>
+                                        Arrival
+                                    </div>
+                                </th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border-b border-gray-200">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-stopwatch text-purple-400 mr-2 text-xs"></i>
+                                        Burst
+                                    </div>
+                                </th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border-b border-gray-200">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-flag text-yellow-500 mr-2 text-xs"></i>
+                                        Priority
+                                    </div>
+                                </th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border-b border-gray-200">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-play text-green-500 mr-2 text-xs"></i>
+                                        Start
+                                    </div>
+                                </th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border-b border-gray-200">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-flag-checkered text-green-600 mr-2 text-xs"></i>
+                                        Complete
+                                    </div>
+                                </th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border-b border-gray-200">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-hourglass-half text-orange-500 mr-2 text-xs"></i>
+                                        Waiting
+                                    </div>
+                                </th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border-b border-gray-200">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-exchange-alt text-indigo-500 mr-2 text-xs"></i>
+                                        Turnaround
+                                    </div>
+                                </th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border-b border-gray-200">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-bolt text-red-500 mr-2 text-xs"></i>
+                                        Response
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="process-details" class="bg-white divide-y divide-gray-200">
+                            <tr id="no-process-details" class="bg-gray-50">
+                                <td colspan="9" class="px-6 py-8 text-center text-gray-500">
+                                    <div class="flex flex-col items-center justify-center">
+                                        <i class="fas fa-inbox text-3xl text-gray-300 mb-2"></i>
+                                        <p class="text-gray-500 font-medium">No process details available</p>
+                                        <p class="text-sm text-gray-400 mt-1">Run the simulation to see detailed metrics</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -262,100 +703,62 @@
                     Simulation Results
                 </h2>
                 <p class="mt-4 text-lg text-gray-500 dark:text-gray-400">
-                    Gantt Chart and Performance Metrics
+                    Performance Metrics
                 </p>
             </div>
         </div>
     </div>
 
+    <!-- Gantt Chart Section -->
+    <div id="gantt-chart-section" class="py-8 bg-white hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Gantt Chart</h2>
+            <div id="gantt-container" class="relative bg-white p-4 rounded-lg shadow-md overflow-x-auto">
+                <div id="gantt-chart" class="flex items-start h-20 min-w-full">
+                    <!-- Process blocks will be added here by JavaScript -->
+                </div>
+                <div id="gantt-timeline" class="flex mt-2 border-t border-gray-300 pt-2">
+                    <!-- Time units will be added here by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
-    <footer class="bg-gray-900">
+    <footer class="bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 text-gray-300">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
-                    <h3 class="text-sm font-semibold text-white">About</h3>
-                    <p class="mt-4 text-base text-gray-300">
+                    <h3 class="text-lg font-bold text-white tracking-wide mb-2">About</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-gray-400 max-w-xs">
                         An educational tool to visualize and understand CPU scheduling algorithms.
                     </p>
                 </div>
                 <div>
-                    <h3 class="text-sm font-semibold text-white">Quick Links</h3>
+                    <h3 class="text-lg font-bold text-white tracking-wide mb-2">Quick Links</h3>
                     <ul class="mt-4 space-y-4">
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Home</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Algorithms</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Demo</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Team</a></li>
+                        <li><a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition-colors duration-200">Home</a></li>
+                        <li><a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition-colors duration-200">Algorithms</a></li>
+                        <li><a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition-colors duration-200">Demo</a></li>
+                        <li><a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition-colors duration-200">Team</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-sm font-semibold text-white">Contact</h3>
+                    <h3 class="text-lg font-bold text-white tracking-wide mb-2">Contact</h3>
                     <ul class="mt-4 space-y-4">
-                        <li><a href="https://github.com/yourusername/cp-simulator" class="text-base text-gray-300 hover:text-white">GitHub Repository</a></li>
-                        <li><a href="mailto:team@cpusimulator.com" class="text-base text-gray-300 hover:text-white">team@cpusimulator.com</a></li>
+                        <li><a href="https://github.com/yourusername/cp-simulator" class="text-sm font-medium text-gray-400 hover:text-white transition-colors duration-200">GitHub Repository</a></li>
+                        <li><a href="mailto:team@cpusimulator.com" class="text-sm font-medium text-gray-400 hover:text-white transition-colors duration-200">team@cpusimulator.com</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="mt-8 pt-8 border-t border-gray-700">
-                <p class="text-base text-gray-400 text-center">
+            <div class="mt-10 pt-8 border-t border-gray-800">
+                <p class="text-sm text-gray-500 text-center">
                     &copy; 2025 CPU Scheduling Simulator. All rights reserved.
                 </p>
             </div>
         </div>
     </footer>
 
-
-</script>
-</html>
-
-    <!-- Navigation -->
-    <nav class="bg-white dark:bg-gray-800 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <h1 class="text-2xl font-bold text-blue-600 dark:text-white">CPU Scheduling Simulator</h1>
-                    </div>
-                </div>
-                <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                    <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-indigo-500 text-sm font-medium text-gray-900 dark:text-white">Home</a>
-                    <a href="#" class="border-transparent text-gray-500 dark:text-gray-400 hover:border-gray-300 dark:hover:border-gray-700">Algorithms</a>
-                    <a href="#" class="border-transparent text-gray-500 dark:text-gray-400 hover:border-gray-300 dark:hover:border-gray-700">Demo</a>
-                    <a href="#" class="border-transparent text-gray-500 dark:text-gray-400 hover:border-gray-300 dark:hover:border-gray-700">Team</a>
-                </div>
-                <button id="dark-mode-toggle" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-                    <svg id="dark-mode-icon" class="w-6 h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Rest of your content here -->
-
-    <!-- Add scheduler.js at the end of body -->
     <script src="scheduler.js" defer></script>
 </body>
-</html>>><div id="dark-mode-container" class="flex items-center space-x-2">
-    <!-- Moon/Sun toggle button -->
-    <button id="dark-mode-toggle" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-        <svg id="dark-mode-icon" class="w-6 h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-        </svg>
-    </button>
-    <!-- Dark/Light mode buttons container -->
-    <div id="dark-mode-options" class="hidden">
-        <button id="dark-mode-btn" class="p-2 rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition-colors">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
-            </svg>
-            <span class="ml-2">Dark</span>
-        </button>
-        <button id="light-mode-btn" class="p-2 rounded-lg bg-white text-gray-800 hover:bg-gray-100 transition-colors">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-            </svg>
-            <span class="ml-2">Light</span>
-        </button>
-    </div>
-</div>
+</html>
